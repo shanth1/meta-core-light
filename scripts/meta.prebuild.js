@@ -129,13 +129,11 @@ $p.wsql.init((prm) => {
 
 
 function create_modules(_m) {
-
   const sys_nsmes = ['log', 'meta_objs', 'meta_fields', 'scheme_settings'];
   const categoties = {
       cch: {mgr: 'ChartOfCharacteristicManager', proto: 'CatObj', dir: 'chartscharacteristics'},
       cacc: {mgr: 'ChartOfAccountManager', proto: 'CatObj'},
       cat: {mgr: 'CatManager', proto: 'CatObj', dir: 'catalogs'},
-      bp: {mgr: 'BusinessProcessManager', proto: 'BusinessProcessObj'},
       tsk: {mgr: 'TaskManager', proto: 'TaskObj'},
       doc: {mgr: 'DocManager', proto: 'DocObj', dir: 'documents'},
       ireg: {mgr: 'InfoRegManager', proto: 'RegisterRow'},
@@ -144,13 +142,8 @@ function create_modules(_m) {
       rep: {mgr: 'DataProcessorsManager', proto: 'DataProcessorObj', dir: 'reports'},
     };
   let text = `(function(){
-  const {MetaEventEmitter,EnumManager,CatManager,DocManager,DataProcessorsManager,ChartOfCharacteristicManager,ChartOfAccountManager,
-    InfoRegManager,AccumRegManager,BusinessProcessManager,TaskManager,CatObj,DocObj,TabularSectionRow,DataProcessorObj,
-    RegisterRow,BusinessProcessObj,TaskObj} = $p.constructor.classes;
-
-  const _define = Object.defineProperties;
-
-`;
+    const { CatObj, DocObj, RegisterRow } = $p.constructor.classes;
+  `;
 
 
   // менеджеры перечислений

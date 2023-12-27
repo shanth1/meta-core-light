@@ -8,22 +8,13 @@
 
 const path = require('path');
 const fs = require('fs');
-const local_meta = path.resolve(__dirname, '../src/metadata');
+const local_meta = path.resolve(__dirname, '../src/metadata') || ''
 
 const include = ['*'];
-const exclude = [
-  'cat.servers',
-  'cch.mdm_groups',
-  'doc.registers_correction',
-  'ireg.i18n',
-  'ireg.delivery_schedules',
-  'ireg.delivery_scheme',
-  'ireg.settlements_course',
-  'ireg.predefined_elmnts',
-];
+const exclude = [];
 const minimal = [];
 const writable = ['*'];
-const read_only = ['cat.countries'];
+const read_only = [];
 
 const cls_map = {cat: 'catalogs', doc: 'documents', enm: 'enums', rep: 'reports', cch: 'chartscharacteristics'};
 
