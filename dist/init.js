@@ -1085,78 +1085,79 @@ set parent(v){this._setter('parent',v)}
   }
 }
 $p.CatFormulas = CatFormulas;
-class CatFormulasManager extends CatManager {
+//! Временное удаление для избежания ошибок
+// class CatFormulasManager extends CatManager {
 
-  constructor(owner, class_name) {
-    super(owner, class_name);
-    $p.adapters.pouch.once('pouch_doc_ram_start', this.load_formulas.bind(this));
-  }
+//   constructor(owner, class_name) {
+//     super(owner, class_name);
+//     $p.adapters.pouch.once('pouch_doc_ram_start', this.load_formulas.bind(this));
+//   }
 
-  load_formulas(src) {
-    const {md, utils, wsql} = $p;
-    const {isNode, isBrowser} = wsql.alasql.utils;
-    const parents = [this.predefined('printing_plates'), this.predefined('modifiers')];
-    const filtered = [];
-    (src || this).forEach((v) => {
-      if(!v.disabled && parents.includes(v.parent)){
-        if(v.context === 1 && !isBrowser || v.context === 2 && !isNode) {
-          return;
-        }
-        filtered.push(v);
-      }
-    });
+//   load_formulas(src) {
+//     const {md, utils, wsql} = $p;
+//     const {isNode, isBrowser} = wsql.alasql.utils;
+//     const parents = [this.predefined('printing_plates'), this.predefined('modifiers')];
+//     const filtered = [];
+//     (src || this).forEach((v) => {
+//       if(!v.disabled && parents.includes(v.parent)){
+//         if(v.context === 1 && !isBrowser || v.context === 2 && !isNode) {
+//           return;
+//         }
+//         filtered.push(v);
+//       }
+//     });
 
-    const compare = utils.sort('name');
+//     const compare = utils.sort('name');
 
-    filtered.sort(utils.sort('sorting_field')).forEach((formula) => {
-      // формируем списки печатных форм и внешних обработок
-      if(formula.parent == parents[0]) {
-        formula.params.find_rows({param: 'destination'}, (dest) => {
-          const dmgr = md.mgr_by_class_name(dest.value);
-          if(dmgr) {
-            const tmp = dmgr._printing_plates ? Object.values(dmgr._printing_plates) : [];
-            tmp.push(formula);
-            tmp.sort(compare);
-            dmgr._printing_plates = {};
-            for(const elm of tmp) {
-              dmgr._printing_plates[`prn_${elm.ref}`] = elm;
-            }
-          }
-        });
-      }
-      else {
-        // выполняем модификаторы
-        try {
-          const res = formula.execute();
-          // еслм модификатор вернул задание кроносу - добавляем планировщик
-          res && utils.cron && utils.cron(res);
-        }
-        catch (err) {
-        }
-      }
-    });
-  }
+//     filtered.sort(utils.sort('sorting_field')).forEach((formula) => {
+//       // формируем списки печатных форм и внешних обработок
+//       if(formula.parent == parents[0]) {
+//         formula.params.find_rows({param: 'destination'}, (dest) => {
+//           const dmgr = md.mgr_by_class_name(dest.value);
+//           if(dmgr) {
+//             const tmp = dmgr._printing_plates ? Object.values(dmgr._printing_plates) : [];
+//             tmp.push(formula);
+//             tmp.sort(compare);
+//             dmgr._printing_plates = {};
+//             for(const elm of tmp) {
+//               dmgr._printing_plates[`prn_${elm.ref}`] = elm;
+//             }
+//           }
+//         });
+//       }
+//       else {
+//         // выполняем модификаторы
+//         try {
+//           const res = formula.execute();
+//           // еслм модификатор вернул задание кроносу - добавляем планировщик
+//           res && utils.cron && utils.cron(res);
+//         }
+//         catch (err) {
+//         }
+//       }
+//     });
+//   }
 
-  // переопределяем load_array - не грузим неактивные формулы
-  load_array(aattr, forse) {
-    const res = super.load_array(aattr.filter((v) => !v.disabled || v.is_folder), forse);
-    const modifiers = this.predefined('modifiers');
-    for(const doc of res) {
-      const {_data, parent} = doc;
-      if(_data._formula) {
-        _data._formula = null;
-        if(parent === modifiers) {
-          $p.record_log(`runtime modifier '${doc.name}'`);
-        }
-      }
-      if(_data._template) {
-        _data._template = null;
-      }
-    }
-  }
+//   // переопределяем load_array - не грузим неактивные формулы
+//   load_array(aattr, forse) {
+//     const res = super.load_array(aattr.filter((v) => !v.disabled || v.is_folder), forse);
+//     const modifiers = this.predefined('modifiers');
+//     for(const doc of res) {
+//       const {_data, parent} = doc;
+//       if(_data._formula) {
+//         _data._formula = null;
+//         if(parent === modifiers) {
+//           $p.record_log(`runtime modifier '${doc.name}'`);
+//         }
+//       }
+//       if(_data._template) {
+//         _data._template = null;
+//       }
+//     }
+//   }
 
-}
-$p.cat.create('formulas', CatFormulasManager, false);
+// }
+// $p.cat.create('formulas', CatFormulasManager, false);
 class CatPosotions extends CatObj{
 get НазваниеДолжностиКраткое(){return this._getter('НазваниеДолжностиКраткое')}
 set НазваниеДолжностиКраткое(v){this._setter('НазваниеДолжностиКраткое',v)}
