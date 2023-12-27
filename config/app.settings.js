@@ -33,7 +33,7 @@ module.exports = function settings(prm = {}) {
     couch_path: process.env.COUCHPATH || "",
 
     // расположение couchdb для nodejs
-    couch_local: process.env.COUCHLOCAL || '',
+    couch_local: process.env.COUCHLOCAL || "http://startokna-dev.oknagc.ru:5984/dts_",
 
     // по умолчанию, обращаемся к зоне 1
     zone: process.env.ZONE || 1,
@@ -68,8 +68,8 @@ module.exports = function settings(prm = {}) {
   }, is_node && {
     // авторизация couchdb
     user_node: {
-      username: process.env.DBUSER || '',
-      password: process.env.DBPWD || '',
+      username: process.env.DBUSER || 'admin',
+      password: process.env.DBPWD || 'admin',
     },
   });
 
