@@ -1,7 +1,7 @@
 /* eslint-disable */
 module.exports = function init_classes($p) {
 (function(){
-    const { CatObj, DocObj, RegisterRow } = $p.constructor.classes;
+    const { CatObj, DocObj } = $p.constructor.classes;
   $p.enm.create('accumulation_record_type');
 $p.enm.create('sort_directions');
 $p.enm.create('comparison_types');
@@ -17,66 +17,6 @@ $p.enm.create('nomTypes');
 $p.enm.create('individualLegal');
 $p.enm.create('taskUrgancy');
 $p.enm.create('taskStatus');
-class CchProperties extends CatObj{
-get shown(){return this._getter('shown')}
-set shown(v){this._setter('shown',v)}
-get sortingField(){return this._getter('sortingField')}
-set sortingField(v){this._setter('sortingField',v)}
-get extraValuesOwner(){return this._getter('extraValuesOwner')}
-set extraValuesOwner(v){this._setter('extraValuesOwner',v)}
-get available(){return this._getter('available')}
-set available(v){this._setter('available',v)}
-get mandatory(){return this._getter('mandatory')}
-set mandatory(v){this._setter('mandatory',v)}
-get includeToName(){return this._getter('includeToName')}
-set includeToName(v){this._setter('includeToName',v)}
-get list(){return this._getter('list')}
-set list(v){this._setter('list',v)}
-get note(){return this._getter('note')}
-set note(v){this._setter('note',v)}
-get destination(){return this._getter('destination')}
-set destination(v){this._setter('destination',v)}
-get tooltip(){return this._getter('tooltip')}
-set tooltip(v){this._setter('tooltip',v)}
-get caption(){return this._getter('caption')}
-set caption(v){this._setter('caption',v)}
-get isExtraProperty(){return this._getter('isExtraProperty')}
-set isExtraProperty(v){this._setter('isExtraProperty',v)}
-get includeToDescription(){return this._getter('includeToDescription')}
-set includeToDescription(v){this._setter('includeToDescription',v)}
-get calculated(){return this._getter('calculated')}
-set calculated(v){this._setter('calculated',v)}
-get showcalc(){return this._getter('showcalc')}
-set showcalc(v){this._setter('showcalc',v)}
-get synonym(){return this._getter('synonym')}
-set synonym(v){this._setter('synonym',v)}
-get inheritance(){return this._getter('inheritance')}
-set inheritance(v){this._setter('inheritance',v)}
-get predefinedName(){return this._getter('predefinedName')}
-set predefinedName(v){this._setter('predefinedName',v)}
-get type(){const {type} = this._obj; return typeof type === 'object' ? type : {types: []}}
-set type(v){this._obj.type = typeof v === 'object' ? v : {types: []}}
-}
-$p.CchProperties = CchProperties;
-$p.cch.create('properties');
-class CchPredefinedElmnts extends CatObj{
-get value(){return this._getter('value')}
-set value(v){this._setter('value',v)}
-get definition(){return this._getter('definition')}
-set definition(v){this._setter('definition',v)}
-get synonym(){return this._getter('synonym')}
-set synonym(v){this._setter('synonym',v)}
-get list(){return this._getter('list')}
-set list(v){this._setter('list',v)}
-get predefinedName(){return this._getter('predefinedName')}
-set predefinedName(v){this._setter('predefinedName',v)}
-get parent(){return this._getter('parent')}
-set parent(v){this._setter('parent',v)}
-get type(){const {type} = this._obj; return typeof type === 'object' ? type : {types: []}}
-set type(v){this._obj.type = typeof v === 'object' ? v : {types: []}}
-}
-$p.CchPredefinedElmnts = CchPredefinedElmnts;
-$p.cch.create('predefinedElmnts');
 class CatCurrencies extends CatObj{
 get nameFull(){return this._getter('nameFull')}
 set nameFull(v){this._setter('nameFull',v)}
@@ -337,14 +277,6 @@ set executor(v){this._setter('executor',v)}
 }
 $p.DocCompletedTaskCertificate = DocCompletedTaskCertificate;
 $p.doc.create('completedTaskCertificate');
-class IregLog_view extends RegisterRow{
-get key(){return this._getter('key')}
-set key(v){this._setter('key',v)}
-get user(){return this._getter('user')}
-set user(v){this._setter('user',v)}
-}
-$p.IregLog_view = IregLog_view;
-$p.ireg.create('log_view');
 })();
 };
 

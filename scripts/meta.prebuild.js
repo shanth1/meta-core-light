@@ -131,18 +131,11 @@ $p.wsql.init((prm) => {
 function create_modules(_m) {
   const sys_nsmes = ['log', 'meta_objs', 'meta_fields', 'scheme_settings'];
   const categoties = {
-      cch: {mgr: 'ChartOfCharacteristicManager', proto: 'CatObj', dir: 'chartscharacteristics'},
-      cacc: {mgr: 'ChartOfAccountManager', proto: 'CatObj'},
       cat: {mgr: 'CatManager', proto: 'CatObj', dir: 'catalogs'},
-      tsk: {mgr: 'TaskManager', proto: 'TaskObj'},
       doc: {mgr: 'DocManager', proto: 'DocObj', dir: 'documents'},
-      ireg: {mgr: 'InfoRegManager', proto: 'RegisterRow'},
-      areg: {mgr: 'AccumRegManager', proto: 'RegisterRow'},
-      dp: {mgr: 'DataProcessorsManager', proto: 'DataProcessorObj', dir: 'dataprocessors'},
-      rep: {mgr: 'DataProcessorsManager', proto: 'DataProcessorObj', dir: 'reports'},
     };
   let text = `(function(){
-    const { CatObj, DocObj, RegisterRow } = $p.constructor.classes;
+    const { CatObj, DocObj } = $p.constructor.classes;
   `;
 
 
