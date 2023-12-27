@@ -1,7 +1,7 @@
 {
-  "name": "windowbuilder-core",
+  "name": "meta-core-light",
   "version": "2.1.265",
-  "description": "Order dealer core library",
+  "description": "core library",
   "repository": {
     "type": "git",
     "url": "https://github.com/oknosoft/windowbuilder-core.git"
@@ -25,8 +25,5 @@
     "url": "https://github.com/oknosoft/windowbuilder/issues"
   },
   "homepage": "https://oknosoft.ru/zd/",
-  "dependencies": {
-    "paper-jsdom-canvas": "0.12.17"
-  },
   "packageManager": "^yarn@1.22"
 }

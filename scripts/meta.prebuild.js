@@ -17,7 +17,6 @@ debug('Читаем конструктор и плагины');
 
 // путь настроек приложения
 const settings_path = path.resolve(__dirname, '../config/app.settings.js');
-const custom_constructors_path = path.resolve(__dirname, '../src/metadata/common/custom_constructors.js');
 
 // текст модуля начальных настроек приложения для включения в итоговый скрипт
 const settings = fs.readFileSync(settings_path, 'utf8');
@@ -29,45 +28,7 @@ const config = require(settings_path)();
 const jsdoc = Boolean(process.env.JSDOC);
 
 // эти классы создадим руками
-const custom_constructor = [
-  'CatFormulasParamsRow',
-  'CatCharacteristicsParamsRow',
-  'DpBuyers_orderProduct_paramsRow',
-  'CatProduction_paramsFurn_paramsRow',
-  'CatProduction_paramsProduct_paramsRow',
-  'CatProduction_paramsFurn_paramsRow',
-  'CatInsertsProduct_paramsRow',
-  'CatCnnsSizesRow',
-  'CatInsertsSelection_paramsRow',
-  'CatCnnsSelection_paramsRow',
-  'CatFurnsSelection_paramsRow',
-  'DocCredit_card_orderPayment_detailsRow',
-  'DocDebit_bank_orderPayment_detailsRow',
-  'DocCredit_bank_orderPayment_detailsRow',
-  'DocDebit_cash_orderPayment_detailsRow',
-  'DocCredit_cash_orderPayment_detailsRow',
-  'CatProjectsExtra_fieldsRow',
-  'CatStoresExtra_fieldsRow',
-  'CatCharacteristicsExtra_fieldsRow',
-  'DocPurchaseExtra_fieldsRow',
-  'DocCalc_orderExtra_fieldsRow',
-  'DocCredit_card_orderExtra_fieldsRow',
-  'DocDebit_bank_orderExtra_fieldsRow',
-  'DocCredit_bank_orderExtra_fieldsRow',
-  'DocDebit_cash_orderExtra_fieldsRow',
-  'DocCredit_cash_orderExtra_fieldsRow',
-  'DocSellingExtra_fieldsRow',
-  'CatBranchesExtra_fieldsRow',
-  'CatPartnersExtra_fieldsRow',
-  'CatNomExtra_fieldsRow',
-  'CatOrganizationsExtra_fieldsRow',
-  'CatDivisionsExtra_fieldsRow',
-  'CatUsersExtra_fieldsRow',
-  'CatProduction_paramsExtra_fieldsRow',
-  'CatParameters_keysParamsRow',
-  'CatCharacteristicsCoordinatesRow',
-  'CatCharacteristicsInsertsRow',
-];
+// const custom_constructor = ['CatFormulasParamsRow'];
 
 // конструктор metadata-core и плагин metadata-pouchdb
 const MetaEngine = require('metadata-core')
@@ -206,42 +167,11 @@ function create_modules(_m) {
     }
   }
 
-  text += fs.readFileSync(custom_constructors_path, 'utf8');
-
   return text + '})();\n';
 
 }
 
-function fld_desc(fld, mfld) {
-  let text = '';
-  if(jsdoc) {
-    if(!mfld.synonym) {
-      if(fld === 'predefined_name') {
-        mfld.synonym = 'Имя предопределенных данных';
-      }
-      else if(fld === 'type') {
-        mfld.synonym = 'Тип значения';
-      }
-      else if(fld === 'parent') {
-        mfld.synonym = 'Группа (иерархия)';
-      }
-    }
-    text += `/**\n* @summary ${mfld.synonym}`;
-    if(mfld.tooltip) {
-      text += `\n* @desc ${mfld.tooltip}`;
-    }
-    text += `\n* @type ${mfld.type.types
-      .map((type) => {
-        if(type.includes('.')) {
-          return DataManager.prototype.obj_constructor.call({class_name: type, constructor_names: {}});
-        }
-        return type.charAt(0).toUpperCase() + type.substr(1);
-      })
-      .join('|')}`;
-    text += '\n*/\n';
-  }
-  return text;
-}
+
 
 function obj_constructor_text(_m, category, name, categoties) {
 
@@ -307,7 +237,6 @@ function obj_constructor_text(_m, category, name, categoties) {
           continue;
         }
         const mfld = meta.fields[f];
-        text += fld_desc(f, mfld);
         
         if(category === 'cch' && f === 'type') {
           text += `get type(){const {type} = this._obj; return typeof type === 'object' ? type : {types: []}}
@@ -391,7 +320,6 @@ set type(v){this._obj.type = typeof v === 'object' ? v : {types: []}}\n`;
     for (const rf in meta.tabular_sections[ts].fields) {
       const mfld = meta.tabular_sections[ts].fields[rf];
       const mf = rf === 'clr' && mfld;
-      text += fld_desc(rf, mfld);
       
       if(mf && mf.type.str_len === 72 && !mf.type.types.includes('cat.color_price_groups')) {
         text += `get ${rf}(){return $p.cat.clrs.getter(this._obj.clr)}`;

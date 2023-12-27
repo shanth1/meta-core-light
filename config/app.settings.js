@@ -25,17 +25,15 @@ module.exports = function settings(prm = {}) {
 
     // гостевые пользователи для демо-режима
     guests: [{
-      username: 'Дилер',
-      password: '1gNjzYQKBlcD',
+      username: '',
+      password: '',
     }],
 
     // расположение couchdb для сайта
-    couch_path: process.env.COUCHPATH || "/couchdb/wb_",
-    //couch_path: "https://light.oknosoft.ru/couchdb/wb_",
-    //couch_path: 'http://cou200:5984/wb_',
+    couch_path: process.env.COUCHPATH || "",
 
     // расположение couchdb для nodejs
-    couch_local: process.env.COUCHLOCAL || 'http://cou221:5984/wb_',
+    couch_local: process.env.COUCHLOCAL || '',
 
     // по умолчанию, обращаемся к зоне 1
     zone: process.env.ZONE || 1,
@@ -70,8 +68,8 @@ module.exports = function settings(prm = {}) {
   }, is_node && {
     // авторизация couchdb
     user_node: {
-      username: process.env.DBUSER || 'admin',
-      password: process.env.DBPWD || 'admin',
+      username: process.env.DBUSER || '',
+      password: process.env.DBPWD || '',
     },
   });
 
